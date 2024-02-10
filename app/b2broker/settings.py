@@ -44,6 +44,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django_filters",
+    "rest_framework",
+    "rest_framework.authtoken",
+    "drf_yasg",
 ] + LOCAL_APPS
 
 MIDDLEWARE = [
@@ -123,3 +127,49 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+REST_FRAMEWORK = {
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework.authentication.TokenAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+    ),
+    "DEFAULT_FILTER_BACKENDS": (
+        "django_filters.rest_framework.DjangoFilterBackend",
+        "rest_framework.filters.SearchFilter",
+    ),
+    "DATETIME_FORMAT": "%Y-%m-%dT%H:%M:%SZ",
+    "TEST_REQUEST_DEFAULT_FORMAT": "json",
+    # "STRICT_JSON": False,  # orjson handles it
+}
+
+SWAGGER_SETTINGS = {
+    "SECURITY_DEFINITIONS": {
+        "Basic": {"type": "basic"},
+        "Token": {"type": "apiKey", "name": "Authorization", "in": "header"},
+    },
+    "DEFAULT_FIELD_INSPECTORS": [
+        "drf_yasg.inspectors.InlineSerializerInspector",
+        "drf_yasg.inspectors.RelatedFieldInspector",
+        "drf_yasg.inspectors.ChoiceFieldInspector",
+        "drf_yasg.inspectors.FileFieldInspector",
+        "drf_yasg.inspectors.DictFieldInspector",
+        "drf_yasg.inspectors.JSONFieldInspector",
+        "drf_yasg.inspectors.HiddenFieldInspector",
+        "drf_yasg.inspectors.RecursiveFieldInspector",
+        "drf_yasg.inspectors.SerializerMethodFieldInspector",
+        "drf_yasg.inspectors.SimpleFieldInspector",
+        "drf_yasg.inspectors.StringDefaultFieldInspector",
+    ],
+    "DEEP_LINKING": True,
+    "DEFAULT_MODEL_DEPTH": 3,
+    "DOC_EXPANSION": "none",
+    "OPERATIONS_SORTER": "alpha",
+    "TAGS_SORTER": "alpha",
+    "VALIDATOR_URL": None,
+}
+
+REDOC_SETTINGS = {
+    "LAZY_RENDERING": True,
+}

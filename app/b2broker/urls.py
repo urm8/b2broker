@@ -15,9 +15,27 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
+from django.conf import settings
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
+from drf_yasg import openapi
+from drf_yasg.views import get_schema_view
+
+schema_view = get_schema_view(
+    openapi.Info(
+        title="b2broker api",
+        default_version="1",
+    ),
+    public=True,
+)
+
 
 urlpatterns = [
+    path(
+        r"swagger/",
+        schema_view.with_ui("swagger", cache_timeout=0 if settings.DEBUG else 360),
+        name="schema-swagger-ui",
+    ),
+    path("wallet/", include("wallet.urls", namespace="wallet")),
     path("admin/", admin.site.urls),
 ]
