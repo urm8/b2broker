@@ -25,10 +25,10 @@ dotenv.load_dotenv(BASE_DIR.parent / ".env")
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure--=8alr5p@(=+2ljo*uppq##ui)%-prt8e#^-x$&@_%@-)vy475"
+SECRET_KEY = getenv("SECRET_KEY", "local")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = getenv("DEBUG") == "True"
 
 
 ALLOWED_HOSTS = ["*"] if DEBUG else getenv("ALLOWED_HOSTS", "*").split(",")
@@ -175,3 +175,6 @@ SWAGGER_SETTINGS = {
 REDOC_SETTINGS = {
     "LAZY_RENDERING": True,
 }
+
+
+STATIC_ROOT = BASE_DIR / "static"

@@ -12,7 +12,7 @@ class TransactionFactory(DjangoModelFactory):
         "wallet.factories.WalletFactory", amount=SelfAttribute("..amount")
     )
     amount = FuzzyFloat(-1_000_000, 1_000_000, precision=18)
-    txid = LazyFunction(lambda: str(uuid4))
+    txid = LazyFunction(lambda: str(uuid4()))
 
     class Meta:
         model = Transaction

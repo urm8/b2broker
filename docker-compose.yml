@@ -22,8 +22,7 @@ services:
     depends_on:
       - db
     environment:
-      DEBUG: "True"
-      STAND: "DEV"
+      DEBUG: "False"
       SECRET_KEY: "django-insecure-v%c#w09c*jy47(*p9kzog@z2v4oj%g8+vsp%2$s(4v8i&ep1gh"
       ALLOWED_HOSTS: "*"
       DB_URI: mysql://root:root@db:3306/b2broker

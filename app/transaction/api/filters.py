@@ -1,4 +1,4 @@
-from django_filters import FilterSet, NumberFilter, filters
+from django_filters import DateTimeFilter, FilterSet, NumberFilter, filters
 
 from transaction.models import Transaction
 from wallet.models import Wallet
@@ -7,8 +7,8 @@ from wallet.models import Wallet
 class TransactionFilterSet(FilterSet):
     wallet = filters.ModelMultipleChoiceFilter(queryset=Wallet.objects.only("id"))
 
-    min_created_at = NumberFilter(field_name="created_at", lookup_expr="gte")
-    max_created_at = NumberFilter(field_name="created_at", lookup_expr="lte")
+    min_created_at = DateTimeFilter(field_name="created_at", lookup_expr="gte")
+    max_created_at = DateTimeFilter(field_name="created_at", lookup_expr="lte")
 
     min_amount = NumberFilter(field_name="amount", lookup_expr="gte")
     max_amount = NumberFilter(field_name="amount", lookup_expr="lte")
