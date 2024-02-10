@@ -1,5 +1,8 @@
+from operator import attrgetter
+
 import pytest
 from django.shortcuts import reverse
+from django.utils import timezone
 from pytest import mark
 from rest_framework import status
 from rest_framework.utils import json
@@ -7,16 +10,17 @@ from rest_framework.utils import json
 from transaction.factories import TransactionFactory
 from transaction.models import Transaction
 from wallet.factories import WalletFactory
+from wallet.models import Wallet
 
 
 @mark.django_db
 class TestTransactionViewSet:
     @pytest.fixture
-    def wallet(self):
+    def wallet(self) -> Wallet:
         return WalletFactory()
 
     @pytest.fixture
-    def transaction(self, wallet):
+    def transaction(self, wallet) -> Transaction:
         return TransactionFactory(wallet=wallet)
 
     def test_create_transaction(self, wallet, api_client):
@@ -60,3 +64,17 @@ class TestTransactionViewSet:
 
         with pytest.raises(Transaction.DoesNotExist):
             Transaction.objects.get(id=transaction.id)
+
+    @pytest.mark.parametrize(
+        "getter,count",
+        [
+            (attrgetter("txid"), 1),
+            (attrgetter("wallet.label"), 1),
+            (lambda o: o.txid[::-1], 0),
+            (lambda o: o.wallet.label[::-1], 0),
+        ],
+    )
+    def test_search_transactions(self, api_client, transaction, getter, count):
+        response = api_client.get(reverse("transaction:transaction-list"), data={'search': getter(transaction)})
+        assert response.status_code == status.HTTP_200_OK
+        assert response.json()['count'] == count

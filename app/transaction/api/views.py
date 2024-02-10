@@ -23,7 +23,7 @@ class TransactionViewSet(
     DestroyModelMixin,
 ):
     queryset = Transaction.objects.select_related("wallet")
-    search_fields = ["taxid", "wallet__label"]
+    search_fields = ["txid", "wallet__label"]
 
     filterset_class = TransactionFilterSet
 
