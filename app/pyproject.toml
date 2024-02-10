@@ -16,6 +16,7 @@ dj-database-url = "^2.1.0"
 python-dotenv = "^1.0.1"
 django-filter = "^23.5"
 drf-yasg = "^1.21.7"
+factory-boy = "^3.3.0"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^3.6.0"

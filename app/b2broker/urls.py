@@ -37,5 +37,6 @@ urlpatterns = [
         name="schema-swagger-ui",
     ),
     path("wallet/", include("wallet.urls", namespace="wallet")),
+    path("transactions/", include("transaction.urls", namespace="transaction")),
     path("admin/", admin.site.urls),
 ]

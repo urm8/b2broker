@@ -53,6 +53,7 @@ class TestWalletViewSet:
         list_view = WalletViewSet.as_view({"get": "list"})
         response = list_view(request)
         assert response.status_code == status.HTTP_200_OK
+        assert response.data["count"] == 1
 
     @pytest.mark.parametrize(
         "lookup,delta,count",
@@ -70,7 +71,7 @@ class TestWalletViewSet:
         list_view = WalletViewSet.as_view({"get": "list"})
         response = list_view(request)
         assert response.status_code == status.HTTP_200_OK
-        assert len(response.data) == count
+        assert response.data["count"] == count
 
     @pytest.mark.parametrize(
         "getter,count",
@@ -86,4 +87,4 @@ class TestWalletViewSet:
         list_view = WalletViewSet.as_view({"get": "list"})
         response = list_view(request)
         assert response.status_code == status.HTTP_200_OK
-        assert len(response.data) == count
+        assert response.data["count"] == count

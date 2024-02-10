@@ -14,3 +14,6 @@ class Wallet(models.Model):
         verbose_name_plural = _(
             "Wallets"
         )  # some languages have different rules for pluralization
+
+    def __str__(self):
+        return f"{self.label}({self.balance})"
