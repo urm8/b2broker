@@ -47,22 +47,3 @@ repos:
       - id: pyupgrade
         files: ^app/
         args: [ --py3-plus, --py36-plus, --py38-plus, --py39-plus, --py310-plus, --keep-runtime-typing]
-
-  - repo: https://github.com/pycqa/flake8
-    rev: "5.0.4" # pick a git hash / tag to point to
-    hooks:
-      - id: flake8
-        files: ^app/
-        args: [ --config, app/.flake8.cfg, --exit-zero ]
-        additional_dependencies:
-          - flake8-cognitive-complexity
-          - flake8-comprehensions
-          - flake8-eradicate
-          - flake8-expression-complexity
-          - flake8-pie
-          - flake8-plugin-utils
-          - flake8-print
-          - flake8-pytest
-          - flake8-pytest-style
-          - flake8-simplify
-          - flake8-variables-names
