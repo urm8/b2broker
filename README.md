@@ -18,6 +18,6 @@ Will be your advantage:
 Test coverage;
 SQLAlchemy migrations; ?? 
 DB transactions. ??
-[execution time limit] 4 seconds (py3)
+[execution time limit] 4 seconds (py3) ???
 
-[memory limit] 1 GB
+[memory limit] 1 GB ???
