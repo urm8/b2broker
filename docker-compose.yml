@@ -1,0 +1,33 @@
+version: "3.9"
+
+services:
+  db:
+    image: mysql:8.3.0
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=b2broker
+    command: mysqld --sql_mode="NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION" --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+
+  app: &django_conf
+    build:
+      context: ./app
+#    command: python manage.py runserver 0.0.0.0:80
+    volumes:
+      - ./app:/app
+      - .env:/app/.env
+    ports:
+      - "8000:80"
+    depends_on:
+      - db
+    environment:
+      DEBUG: "True"
+      STAND: "DEV"
+      SECRET_KEY: "django-insecure-v%c#w09c*jy47(*p9kzog@z2v4oj%g8+vsp%2$s(4v8i&ep1gh"
+      ALLOWED_HOSTS: "*"
+      DB_URI: mysql://root:root@db:5432/b2broker
+      DOMAIN: "localhost:8000"
+
+volumes:
+  db: {}
