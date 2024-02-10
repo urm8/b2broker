@@ -35,9 +35,7 @@ ALLOWED_HOSTS = ["*"] if DEBUG else getenv("ALLOWED_HOSTS", "*").split(",")
 
 
 # Application definition
-LOCAL_APPS = [
-    "wallet",
-]
+LOCAL_APPS = ["wallet", "transaction"]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
