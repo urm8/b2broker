@@ -9,7 +9,10 @@ services:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=b2broker
     command: mysqld --sql_mode="NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION" --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
-
+    healthcheck:
+      test: "mysql -uroot -proot b2broker -e 'select 1'"
+      interval: 5s
+      retries: 120
   app: &django_conf
     build:
       context: ./app

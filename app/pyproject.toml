@@ -56,6 +56,6 @@ exclude = '''
 '''
 target-version = ['py311']
 
-[pytest]
+[tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = 'b2broker.settings'
 python_files = ['test_*.py']
